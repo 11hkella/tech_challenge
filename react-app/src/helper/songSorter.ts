@@ -1,4 +1,3 @@
-import { isBreakStatement } from "typescript";
 import Song from "../interface/Song";
 
 export default function songSorter(songList: Song[], colName: string): Song[] {
@@ -7,11 +6,11 @@ export default function songSorter(songList: Song[], colName: string): Song[] {
     }
 
     // determine column data type
-    const testValue: any = songList[0][colName];
+    const testValue = songList[0][colName];
     let colType = typeof testValue;
 
     if (colType === 'string') {
-        let d = new Date(testValue);
+        const d = new Date(testValue);
         if (d instanceof Date && !isNaN(d.valueOf())) {
             colType = 'object';
         }

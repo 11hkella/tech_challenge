@@ -1,14 +1,14 @@
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useEffect } from 'react';
 import Song from '../interface/Song';
 import TableItem from './TableItem';
 import './Table.css'
 import { constants } from '../helper/constants';
 import songSorter from '../helper/songSorter';
-import { isNullishCoalesce } from 'typescript';
+import { camelCaseToTitle } from '../helper/strings';
 
 const { useState } = React;
 
-export interface TableProps {
+interface TableProps {
     songData: Song[] | undefined
     columnNames: string[]
 }
@@ -39,23 +39,27 @@ function Table({ songData, columnNames }: TableProps) {
         setDisplayList(newDisplayList);
     }
 
+    const tableHeaderMapper = (name: string, i: number) => {
+        const colClass = name === sortByColumn
+            ? `table-cell col-${i} header-cell sort-selected`
+            : `table-cell col-${i} header-cell`
+        const sortArrow = name === sortByColumn
+            ? sortDirection === constants.asc
+                ? '↑'
+                : '↓'
+            : '';
+        return (
+            <div className={colClass} data-column={name} key={name} onClick={headerClickHandler}>
+                <p>{camelCaseToTitle(name)} {sortArrow}</p>
+
+            </div>
+        )
+    }
+
     return (
         <div className="table-wrapper">
             <div className="table-header">
-                {columnNames.map((name, i) => {
-                    const colClass = `table-cell col-${i} header-cell`
-                    const sortArrow = name === sortByColumn
-                        ? sortDirection === constants.asc
-                            ? '↑' // up arrow
-                            : '↓' // down arrow
-                        : '';
-                    return (
-                        <div className={colClass} data-column={name} key={name} onClick={headerClickHandler}>
-                            <p>{name} {sortArrow}</p>
-
-                        </div>
-                    )
-                })}
+                {columnNames.map(tableHeaderMapper)}
             </div>
             <div className="table-body">
                 {displayList?.map((song, i) => {
