@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect } from 'react';
+import React, { SyntheticEvent } from 'react';
 import Song from '../interface/Song';
 import TableItem from './TableItem';
 import './Table.css'

@@ -12,7 +12,7 @@ This will compile the typescript files and output a build of the service into th
 Finally, an api instance will start at [localhost:3000/graphql](localhost:3000/graphql)
 
 ### Start React App
-On a separate terminal, navigate to the /react-app directory and run `npm start`.
+On a separate terminal, navigate to the /react-app directory and run `npm install` then `npm start`.
 
 This will start the React app on [localhost:4000](localhost:4000)
 
