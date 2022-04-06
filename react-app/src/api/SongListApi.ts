@@ -37,7 +37,6 @@ export default class SongListApi {
             const response = await axios.post(this.url, {
                 query: this.songsQuery
             });
-            debugger;
             const songList = response.data.data.songs;
             return new Promise(resolve => resolve(songList));
         } catch (err) {
